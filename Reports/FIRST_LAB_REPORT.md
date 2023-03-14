@@ -4,23 +4,6 @@
 ### Author: Maia Zaica
 ### Variant 29
 
-
-Variant 29:
-
-VN={S, A, B, C},
-VT={a, b},
-P={
-    S → bA     
-    A → b    
-    A → aB   
-    B → bC    
-    C → cA
-    A → bA
-    B → aB
-}
-
-
-
 ----
 
 ## Theory
@@ -44,6 +27,31 @@ The mathematical model of finite automata consists of:
 * Set of final states (qf)
 * Transition function (δ)
 
+```
+P = {          
+    S → bA     
+    A → b    
+    A → aB   
+    B → bC    
+    C → cA
+    A → bA
+    B → aB
+}
+```
+or
+```
+P = {          
+    S → bA     
+    A → aB | bA | b  
+    B → aB | bC    
+    C → cA
+}
+```
+
+```
+RE = b(b+aa*bc)*b
+```
+![img.png](images/img.png)
 ## Objectives:
 
 1. Understand what a language is and what it needs to have in order to be considered a formal one.
@@ -68,27 +76,20 @@ The mathematical model of finite automata consists of:
 
 1. You can use 2 classes in order to represent the 2 main object which are the grammar and finite automaton. Additional data model, helper classes etc. can be added but should be used (i.e. you shouldn't have source code file that are not used).
 
-``` json
+```
 public class Grammar
 {
-    // Some state variables as needed.
-    // {V_n, V_t, P, S}
+    private final HashSet<Character> nonTerminalSymbols = new HashSet<>();
+    private final HashSet<Character> terminalSymbols = new HashSet<>();
+    private final HashMap<Character, ArrayList<String>> productions = new HashMap<>();
+    private final char startSymbol;
 
-    public Grammar(some params...)
-    {
-        ...
-    }
-
-    // This method could be called 5 times to get 5 words.
-    // You have multiple options on how to implement this method.
-    public String generateString()
-    {
-        // The implementation...
-    }
-
-    public FiniteAutomaton toFiniteAutomaton()
-    {
-        // Convert this to an object of type Finite Automaton.
+    public Grammar(char[] Vn, char[] Vt, char[] productionLeft,
+                   String[] productionRight, char startSymbol){
+        genNonTerminalSymbols(Vn);
+        genTerminalSymbols(Vt);
+        genProductions(prodLeft, prodRight);
+        this.startSymbol = startSymbol;
     }
 }
 
@@ -97,14 +98,25 @@ public class FiniteAutomaton
     // Some state variables as needed.
     // {Q, Sigma, delta, q0, F}
 
-    public FiniteAutomaton(constructor params...)
-    {
-        ...
-    }
+    
+    private HashSet<Character> possibleStates;
+    private HashSet<Character> alphabet;
+    private ArrayList<Transition> transitions;
+    private char initialState;
+    private char finalState;
 
-    public boolean stringBelongToLanguage(final String inputString)
-    {
-        ...
+    public FiniteAutomaton(HashSet<Character> vn,
+                           HashSet<Character> vt,
+                           char initialState,
+                           char finalState
+                           ){
+
+        transitions = new ArrayList<>();
+        possibleStates = new HashSet<>(vn);
+        possibleStates.add(finalState);
+        alphabet = new HashSet<>(vt);
+        this.initialState = initialState;
+        this.finalState = finalState;
     }
 }
 ```
@@ -140,7 +152,7 @@ public static void main()
 
 
 ## References
-
+https://graphviz.org/Gallery/directed/fsm.html
 
 Finite Automaton
 

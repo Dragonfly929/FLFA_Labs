@@ -1,10 +1,67 @@
 package automaton;
 
-abstract public class FiniteAutomaton {
-    private char[] possibleStates;
-    private char[] alphabet;
-    private Transition[] transitions;
+import java.util.ArrayList;
+import java.util.HashSet;
+
+public class FiniteAutomaton
+{
+    private HashSet<Character> possibleStates;
+    private HashSet<Character> alphabet;
+    private ArrayList<Transition> transitions;
     private char initialState;
-    private char[] finalStates;
-    public abstract boolean wordIsValid();
+    private char finalState;
+
+    public FiniteAutomaton(HashSet<Character> vn,
+                           HashSet<Character> vt,
+                           char initialState,
+                           char finalState
+                           ){
+
+        transitions = new ArrayList<>();
+        possibleStates = new HashSet<>(vn);
+        possibleStates.add(finalState);
+        alphabet = new HashSet<>(vt);
+        this.initialState = initialState;
+        this.finalState = finalState;
+    }
+
+    public void setTransitions(Transition transition) {
+        transitions.add(transition);
+    }
+
+    public void printTransitions(){
+        System.out.println("\nTransitions set: ");
+        for(Transition el: transitions){
+            System.out.println(el.toString());
+        }
+    }
+
+    public char getFinalState() {
+        return finalState;
+    }
+
+    public boolean wordIsValid(String word){
+        boolean valid = false;
+        char currentState = initialState;
+
+        for(int i = 0; i < word.length(); i++){
+            for(Transition tr : transitions){
+                if(tr.getCurrentState() == currentState &&
+                   tr.getTransitionLabel() == word.charAt(i)){
+
+                    currentState = tr.getNextState();
+                    valid = true;
+                    break;
+                } else {
+                    valid = false;
+                }
+            }
+        }
+        if(valid && currentState == finalState){
+            System.out.println("\nExpression <"+ word +"> is valid");
+        } else {
+            System.out.println("\nExpression <"+ word +"> is not valid");
+        }
+        return valid;
+    }
 }

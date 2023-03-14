@@ -1,6 +1,7 @@
 package grammar;
 
-public class Production {
+public class Production
+{
     private String leftSide;
     private String rightSide;
 }

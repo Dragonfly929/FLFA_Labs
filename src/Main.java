@@ -2,28 +2,20 @@ import automaton.FiniteAutomaton;
 import grammar.Grammar;
 
 public class Main {
-    public static void main(String[] args)
-    {
-        Grammar grammar = new Grammar()
-        {
-            @Override
-            public String generateWord()
-            {
-                return null;
-            }
+    public static void main(String[] args) {
+        // {V_n, V_t, P, S} - grammar
+        char[] Vn = {'S', 'A', 'B', 'C'}; // Non-terminal symbols
+        char[] Vt = {'a', 'b'};  // Terminal symbols
 
-            @Override
-            public FiniteAutomaton toFiniteAutomaton()
-            {
-                return null;
-            }
-        };
+        char[] productionLeft = {'S', 'A', 'A', 'B', 'C', 'A', 'B'};  // left side of production
+        String[] productionRight = {"bA", "b", "aB", "bC", "cA", "bA", "aB"};  // right side of production
+        char initialState = 'S';
 
-        System.out.println(grammar.generateWord());
-        grammar.generateWord();
-        grammar.generateWord();
-        grammar.generateWord();
-        grammar.generateWord();
+        Grammar grammar = new Grammar(Vn, Vt, productionLeft, productionRight, initialState);
+        System.out.println(grammar.generateWords(5));
 
+        FiniteAutomaton fa = grammar.toFiniteAutomaton();
+        fa.wordIsValid("bb");
+        fa.wordIsValid("abc");
     }
 }
