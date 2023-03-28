@@ -239,7 +239,7 @@ public static void main()
 
 <a id="2">[2]</a>.  TUTORIALSPOINT. *Automata Theory Introduction* [online]. [accessed 17.02.2023] Available: https://www.tutorialspoint.com/automata_theory/automata_theory_quick_guide.htm
 
-<a id="3">[3]</a>. TUTORIALSPOINT. *Automata Theory Introduction*. [online] https://www.tutorialspoint.com/explain-the-concept-of-grammar-in-toc
+<a id="3">[3]</a>. TUTORIALSPOINT. *Explain the concept of grammar in TOC*. [online] https://www.tutorialspoint.com/explain-the-concept-of-grammar-in-toc
 
 [4]: https://graphviz.org/Gallery/directed/fsm.html
 
