@@ -66,7 +66,7 @@ RE(FA) = b(b+aa*bc)*b
 ```
 Regular Grammar to FA
 ```math
-\(G = (V_{N}, V_{T}, P, S)\)
+(G = (V_{N}, V_{T}, P, S)\
 ```
 ![img.png](images/img.png) [4]
 
