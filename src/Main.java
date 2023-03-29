@@ -64,16 +64,16 @@ public class Main {
 
         System.out.println("Production list of converted grammar: " + gr.getProductions());  //production list
 
-        gr.grammarType(); //checking the grammar type
+        gr.grammarType();
 
-        System.out.println("\n-----Before conversion-----");
-        fa1.isNFA(); // This FA should be non-deterministic
+        System.out.println("\nBefore");
+        fa1.isNFA();
 
-        fa1.convertToDFA(); //Convert NFA to DFA
+        fa1.convertToDFA(); //Convert
 
-//        System.out.println(finiteAutomaton1.getTransitions()); //visualize new transitions. Not required
+//        System.out.println(finiteAutomaton1.getTransitions());
 
-        System.out.println("\n-----After conversion-----");
-        fa1.isNFA();  // Now this should be deterministic
+        System.out.println("\nAfter");
+        fa1.isNFA();
     }
 }

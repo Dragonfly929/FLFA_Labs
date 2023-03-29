@@ -144,25 +144,25 @@ public class FiniteAutomaton {
             analyzed.add(term);
             ArrayList<String> prodList = new ArrayList<>();
 
-            if(possibleStates.contains(term)){ //state formed just from one term. Ex: q1
-                prodList = grammar.getProductions().get(term); //list of transition label and possible from that transition state
+            if(possibleStates.contains(term)){
+                prodList = grammar.getProductions().get(term);
             }
             else {
                 HashSet<String> unique = new HashSet<>();
-                String pattern = "q\\d+"; //  extract strings that match the pattern "q" followed by one or more digits
+                String pattern = "q\\d+";
                 Pattern p = Pattern.compile(pattern);
                 Matcher m = p.matcher(term);
 
                 while (m.find()) {
                     String match = m.group();
-                    unique.addAll(grammar.getProductions().get(match));  //reunion between found terms
+                    unique.addAll(grammar.getProductions().get(match));
                 }
                 prodList.addAll(unique);
                 Collections.sort(prodList);
             }
             for(String element : prodList){
                 String trLabel = element.substring(0, 1);
-                String transition = element.substring(1); // now we can use q0 or A for representation of non-terminals
+                String transition = element.substring(1);
 
                 if(!states.containsKey(trLabel)){
                     states.put(trLabel, new ArrayList<>());
@@ -174,14 +174,14 @@ public class FiniteAutomaton {
                 String newNextState;
                 List<String> labelStates = states.get(label);
                 if(labelStates != null){
-                    newNextState = String.join("", labelStates); //form new state trans
+                    newNextState = String.join("", labelStates);
                 }
                 else{
                     newNextState = "empty";
                 }
                 newTransitions.add(new Transition(term, label , newNextState));
 
-                if(!analyzed.contains(newNextState) && !newNextState.equals("empty")){ //add state to stack if it wasn't analyzed yet
+                if(!analyzed.contains(newNextState) && !newNextState.equals("empty")){
                     stack.add(newNextState);
                     analyzed.add(newNextState);
                 }
