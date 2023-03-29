@@ -1,32 +1,30 @@
 package grammar;
-import automaton.FiniteAutomaton;
-import automaton.Transition;
+
+import automaton.*;
 import java.util.*;
 
 public class Grammar {
-    private final HashSet<Character> nonTerminalSymbols = new HashSet<>();
-    private final HashSet<Character> terminalSymbols = new HashSet<>();
-    private final HashMap<Character, ArrayList<String>> productions = new HashMap<>();
-    private final char startSymbol;
+    private final HashSet<String> nonTerminalSymbols = new HashSet<>();
+    private final HashSet<String> terminalSymbols = new HashSet<>();
+    private final HashMap<String, ArrayList<String>> productions = new HashMap<>();
+    private final String initialState;
 
-    public Grammar(char[] Vn, char[] Vt, char[] productionLeft, String[] productionRight, char initialState){
-        genNonTerminalSymbols(Vn);
-        genTerminalSymbols(Vt);
+    public Grammar(String[] Vn, String[] Vt, String[] productionLeft,
+                   String[] productionRight, String startSymbol){
+        nonTerminalSymbols.addAll(Arrays.asList(Vn));
+        terminalSymbols.addAll(Arrays.asList(Vt));
         genProductions(productionLeft, productionRight);
-        this.startSymbol = initialState;
+        this.initialState = startSymbol;
     }
-    public void genNonTerminalSymbols(char[] Vn){
-        for (char c : Vn) {
-            nonTerminalSymbols.add(c);
-        }
+
+    public HashMap<String, ArrayList<String>> getProductions() {
+        return productions;
     }
-    public void genTerminalSymbols(char[] Vt){
-        for (char c : Vt) {
-            terminalSymbols.add(c);
-        }
-    }
-    public void genProductions(char[] productionLeft, String[] productionRight) {
+
+    public void genProductions(String[] productionLeft, String[] productionRight) {
+
         for(int i = 0; i < productionLeft.length; i++){
+
             if(!productions.containsKey(productionLeft[i])){
                 productions.put(productionLeft[i], new ArrayList<>());
             }
@@ -38,51 +36,97 @@ public class Grammar {
         ArrayList<String> result = new ArrayList<>();
         Random random = new Random();
 
-        System.out.println("\nGenerated Words:");
+        System.out.println("\nGenerated words:");
         while(result.size()  < wordsAmount){
-            Stack<Character> stack = new Stack<>();
+            Stack<String> stack = new Stack<>();
             StringBuilder stringBuilder = new StringBuilder();
 
-            stack.add(startSymbol);
-            System.out.print("\n" + startSymbol + " ---> ");
+            stack.add(initialState);
+            System.out.print("\n" + initialState + " ---> ");
 
             while(!stack.isEmpty()){
-                char term = stack.pop();
+                String term = stack.pop();
 
-                if(nonTerminalSymbols.contains(term)){
+                if (nonTerminalSymbols.contains(term)){
                     ArrayList<String> tempArrayRes = productions.get(term);
                     String tempRes = tempArrayRes.get(random.nextInt(tempArrayRes.size()));
                     System.out.print(stringBuilder + tempRes + " ---> ");
 
                     for(int i = tempRes.length() - 1; i >= 0; i--){
-                        stack.add(tempRes.charAt(i));
+                        stack.add(String.valueOf(tempRes.charAt(i)));
                     }
-                } else {
+                } else{
                     stringBuilder.append(term);
                 }
             }
             result.add(stringBuilder.toString());
             System.out.print("<" + stringBuilder + ">");
         }
-        System.out.print("\n\n" + "Words generated: ");
+        System.out.print("\n\n" + "Final set of strings: ");
         return result;
     }
 
-    public FiniteAutomaton toFiniteAutomaton(){
-        FiniteAutomaton finiteAutomaton = new FiniteAutomaton(nonTerminalSymbols,
-                                              terminalSymbols,
-                                              startSymbol, 'F');
-        for(char key: productions.keySet()){
+    public FiniteAutomaton toFiniteAutomaton(String finalState){
+        FiniteAutomaton finiteAutomaton = new FiniteAutomaton(nonTerminalSymbols, terminalSymbols, initialState, finalState);
+        for(String key: productions.keySet()){
             for(String element: productions.get(key)){
-                if(element.length() < 2){
-                    finiteAutomaton.setTransitions(new Transition(key,element.charAt(0),
-                                                   finiteAutomaton.getFinalState()));
-                } else {
-                    finiteAutomaton.setTransitions(new Transition(key,element.charAt(0),
-                                                   element.charAt(1)));
+                if(element.length() < 2 ){
+                    finiteAutomaton.setTransitions(new Transition(key, element,
+                            finiteAutomaton.getFinalState()));
+                }
+                else{
+                    finiteAutomaton.setTransitions(new Transition(key,String.valueOf(element.charAt(0)),
+                            element.substring(1)));
                 }
             }
         }
         return finiteAutomaton;
+    }
+
+    public void grammarType(){
+        boolean isRegular = true;
+        boolean isContextFree = true;
+
+        for(String key : productions.keySet()){
+            if (key.length() > 1 && !nonTerminalSymbols.contains(key)) {
+                isContextFree = false;
+                isRegular = false;
+                break;
+            }
+        }
+
+        for(ArrayList<String> list : productions.values()){
+            for(String element : list){
+                if(element.length() == 0){
+                    System.out.println("Type: Type 0. Recursively Enumerable Grammar");
+                    return;
+                }
+                boolean isTwoSymbol = nonTerminalSymbols.contains(element.substring(1));
+                if(element.length() > 2 && !isTwoSymbol){
+                    isRegular = false;
+                }
+
+                else if(element.length() == 2 || isTwoSymbol){
+                    String first = String.valueOf(element.charAt(0));
+                    String second = element.substring(1);
+                    if(!terminalSymbols.contains(first) || !nonTerminalSymbols.contains(second)){
+                        isRegular = false;
+                    }
+                } else {
+                    String symbol = String.valueOf(element.charAt(0));
+                    if(!terminalSymbols.contains(symbol)){
+                        isRegular = false;
+                    }
+                }
+            }
+        }
+
+        if(isRegular){
+            System.out.println("Type: Type 3. Regular Grammar");
+        } else if(isContextFree){
+            System.out.println("Type:Type 2. Context-free Grammar");
+        } else {
+            System.out.println("Type: Type 1. Context-Sensitive Grammar");
+        }
     }
 }

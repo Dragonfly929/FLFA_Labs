@@ -138,19 +138,20 @@ NFA = (Q, ∑, δ, q<sub>0</sub>, F)
 
 DFA = (Q', ∑, δ', q<sub>0</sub>, F')
 
-|     δ'    |     a    | b      |
+|    δ'     |     a    | b      |
 |:---------:|:--------:|--------|
-| →q0       | {q0q1}   | ∅      |
-| q0q1      | {q0q1q2} | q1     |
-| q1        | q2       | q1     |
+|    →q0    | {q0q1}   | ∅      |
+|  {q0q1}   | {q0q1q2} | q1     |
+|    q1     | q2       | q1     |
 | *{q0q1q2} | {q0q1q2} | {q1q2} |
-| *q2       | q0       | q2     |
-| *{q1q2}   | {q0q2}   | {q1q2} |
-| *{q0q2}   | {q0q1}   | q2     |
+|    *q2    | q0       | q2     |
+|  *{q1q2}  | {q0q2}   | {q1q2} |
+|  *{q0q2}  | {q0q1}   | q2     |
 
+![img.png](images/img4.png)
 
+**Figure. 1** *DFA*
 * About 2-3 sentences to explain each piece of the implementation.
-
 
 * Code snippets from your files.
 
