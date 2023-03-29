@@ -81,6 +81,7 @@ F = {X} \\
 \end{aligned}
 $$
 ```
+
 ![img.png](images/img.png) [4]
 
 #### Chomsky Classification of Grammars
