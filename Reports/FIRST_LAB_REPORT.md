@@ -20,12 +20,12 @@ The **concatenation** of two strings *u, v* ∈ Σ
 An automaton with a finite number of states is called a **Finite Automaton** (FA) or Finite State Machine (FSM).
 Formal definition of a Finite Automaton [[2]](#2).
 
-An automaton can be represented by a 5-tuple (Q, ∑, δ, q0, F), where:
-* Q is a finite set of states
-* ∑ is a finite set of symbols, called the alphabet of the automaton.
-* δ is the transition function.
-* q0 is the initial state from where any input is processed (q0 ∈ Q).
-* F is a set of final state/states of Q (F ⊆ Q).
+An automaton can be represented by a 5-tuple (Q, ∑, δ, q<sub>0</sub>, F), where:
+* **Q** is a finite set of states
+* **∑** is a finite set of symbols, called the alphabet of the automaton.
+* **δ** is the transition function.
+* **q<sub>0</sub>** is the initial state from where any input is processed (q0 ∈ Q).
+* **F** is a set of final state/states of Q (F ⊆ Q).
 
 #### Grammar
 Grammar in theory of computation is a finite set of formal rules that are generating syntactically correct sentences [[3]](#3).
@@ -66,7 +66,16 @@ RE(FA) = b(b+aa*bc)*b
 ```
 Regular Grammar to FA
 ```math
-(G = (V_{N}, V_{T}, P, S)\
+\(G = (V_{N}, V_{T}, P, S)\)
+$\(FA = (Q, ∑, δ, q_{0}, F))$
+1. States
+$Q = V_{N} ∪ {X}$, X-final state
+q_{0} = {S}
+F = {X}
+2. Alphabet
+∑ = V_{T}
+3. Since we have A → b, we add additional state X-final state
+δ
 ```
 ![img.png](images/img.png) [4]
 
