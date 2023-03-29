@@ -68,16 +68,16 @@ Regular Grammar to FA
 ```math
 $$
 \begin{aligned}
-G = (V_{N}, V_{T}, P, S) \\
-FA = (Q, ∑, δ, q_{0}, F) \\
+G=(V_{N}, V_{T}, P, S) \\
+FA=(Q, ∑, δ, q_{0}, F) \\
 1. States \\
-Q = V_{N} ∪ {X}, X-final state \\
-q_{0} = {S} \\
-F = {X} \\
+Q=V_{N} ∪ {X}, X-final\:state \\
+q_{0}=\{S\} \\
+F=\{X\} \\
 2. Alphabet \\
-∑ = V_{T} \\
-3. Since we have A → b, we add additional state X-final state \\
-δ(A, b)={X} \\
+∑=V_{T} \\
+3. Since\:we\:have\:A → b,\:we\:add\:additional\:state\:X-final\:state \\
+δ(A, b)=\{X\}
 \end{aligned}
 $$
 ```
