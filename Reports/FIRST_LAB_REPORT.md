@@ -248,7 +248,9 @@ System.out.println(grammar.generateWords(5));
 ```
 We create an object, an instance of `Grammar` class, using method `generateWords` we generate words, having as parameter the number of words we want to generate
 
-![img.png](images/img2.png)
+```
+Final set of strings: [bbbb, bbbaaabcbbabcb, bb, bb, bbbb]
+```
 
 ```java
 FiniteAutomaton fa = grammar.toFiniteAutomaton();
@@ -256,7 +258,11 @@ fa.wordIsValid("bb");
 fa.wordIsValid("abc");
 ```
 Creating an object fa, that represents finite automata, and using the method `wordIsValid` we check if word are valid in the grammar we have.
-![img.png](images/img3.png) 
+```
+<bb> is valid
+
+<abc> is not valid
+```
 
 In conclusion, while the laboratory work with formal languages, regular grammars, and finite automata was challenging, we gained a deeper understanding of these concepts and their applications, developing important skills that will.
 
