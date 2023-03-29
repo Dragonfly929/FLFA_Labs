@@ -79,6 +79,7 @@ F = {X} \\
 3. Since we have A → b, we add additional state X-final state \\
 δ(A, b)={X} \\
 \end{aligned}
+$$
 ```
 ![img.png](images/img.png) [4]
 
