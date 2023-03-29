@@ -11,12 +11,7 @@ public class FiniteAutomaton
     private char initialState;
     private char finalState;
 
-    public FiniteAutomaton(HashSet<Character> vn,
-                           HashSet<Character> vt,
-                           char initialState,
-                           char finalState
-                           ){
-
+    public FiniteAutomaton(HashSet<Character> vn, HashSet<Character> vt, char initialState, char finalState){
         transitions = new ArrayList<>();
         possibleStates = new HashSet<>(vn);
         possibleStates.add(finalState);
@@ -48,7 +43,6 @@ public class FiniteAutomaton
             for(Transition tr : transitions){
                 if(tr.getCurrentState() == currentState &&
                    tr.getTransitionLabel() == word.charAt(i)){
-
                     currentState = tr.getNextState();
                     valid = true;
                     break;
@@ -58,9 +52,9 @@ public class FiniteAutomaton
             }
         }
         if(valid && currentState == finalState){
-            System.out.println("\nExpression <"+ word +"> is valid");
+            System.out.println("\n<"+ word +"> is valid");
         } else {
-            System.out.println("\nExpression <"+ word +"> is not valid");
+            System.out.println("\n<"+ word +"> is not valid");
         }
         return valid;
     }

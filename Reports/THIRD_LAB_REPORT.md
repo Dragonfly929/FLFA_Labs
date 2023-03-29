@@ -1,4 +1,4 @@
-# Topic: Lexer or Scanner
+# Topic: Lexer | Scanner
 ### Course: Formal Languages & Finite Automata
 ### Author: Maia Zaica
 

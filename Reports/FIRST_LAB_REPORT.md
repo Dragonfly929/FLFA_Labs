@@ -142,7 +142,7 @@ where a ∈ V<sub>T</sub> \
 
 ## Implementation
 
-1. Classes to represent the 2 main object which are the grammar and finite automaton.
+### Classes to represent the 2 main object which are the grammar and finite automaton.
 
 ```java
 public class Grammar
@@ -217,39 +217,51 @@ The class also has three methods:
 * `printTransitions()`: a method that prints all the transitions in the transitions list.
 * `wordIsValid(String word)`: a method that checks if a given string is recognized by the automaton. It takes a String parameter word, and iterates over the string, checking each symbol against the transitions in the transitions list. If the automaton reaches the final state after processing the entire string, it returns true; otherwise, it returns false. It also prints a message indicating whether the string is valid or not.
 
-2. In order to show the execution you can implement a client class/type, which is just a "Main" class/type in which you can instantiate the types/classes. Another approach would be to write unit tests if you are familiar with them.
+#### Implementation of individual condition given
 
-## Implementation description
+```java
+// Main.java
+        // {V_n, V_t, P, S} - grammar
+        char[] Vn = {'S', 'A', 'B', 'C'}; // Non-terminal symbols
+        char[] Vt = {'a', 'b'};  // Terminal symbols
 
-```json
-{
-  "firstName": "John",
-  "lastName": "Smith",
-  "age": 25
-}
+        char[] productionLeft = {'S', 'A', 'A', 'B', 'C', 'A', 'B'};  // left side of production
+        String[] productionRight = {"bA", "b", "aB", "bC", "cA", "bA", "aB"};  // right side of production
+        char initialState = 'S';
 ```
+There is also a class called `Transition` that represents a transition in an automaton. It has three private fields: `currentState`, `transitionLabel`, and `nextState`, all of which are characters. It has a constructor that takes in these three fields and sets them accordingly.
 
-* About 2-3 sentences to explain each piece of the implementation.
-
-
-* Code snippets from your files.
-
-```
-public static void main() 
-{
-
-}
-```
-
-* If needed, screenshots.
+It also has three public getter methods to access the private fields. Lastly, it overrides the `toString` method to provide a string representation of the transition, which includes the current state, transition label, and next state.
 
 
 ## Conclusions / Screenshots / Results
+The execution of this laboratory work was rather challenging, especially for a beginner who is not familiar with these concepts. 
+The initial difficulty lies in understanding the abstract notions and mathematical concepts behind formal languages, regular grammar, 
+and finite automata. However, once students have grasped the basic concepts, the real challenge begins with the implementation of regular grammar and 
+finite automata. Moreover, discovered that the process of designing a regular grammar or a finite automaton requires creativity and critical thinking. 
+It involves breaking down a complex language into simpler components and building a model that can recognize or generate these components. 
+We learned how to translate abstract concepts into concrete models and how to apply mathematical principles to solve real-world problems.
 
+```java
+Grammar grammar = new Grammar(Vn, Vt, productionLeft, productionRight, initialState);
+System.out.println(grammar.generateWords(5));
+```
+We create an object, an instance of `Grammar` class, using method `generateWords` we generate words, having as parameter the number of words we want to generate
+
+![img.png](images/img2.png)
+
+```java
+FiniteAutomaton fa = grammar.toFiniteAutomaton();
+fa.wordIsValid("bb");
+fa.wordIsValid("abc");
+```
+Creating an object fa, that represents finite automata, and using the method `wordIsValid` we check if word are valid in the grammar we have.
+![img.png](images/img3.png) 
+
+In conclusion, while the laboratory work with formal languages, regular grammars, and finite automata was challenging, we gained a deeper understanding of these concepts and their applications, developing important skills that will.
 
 ## References
 <a id="1">[1]</a>. COJUHARI Irina, DUCA Ludmila, FIODOROV Ion. *Formal Languages and Finite Automata Guide for practical lessons*. Chișinău: Editura Tehnica-UTM, 2022. p. 5
-
 
 <a id="2">[2]</a>.  TUTORIALSPOINT. *Automata Theory Introduction* [online]. [accessed 17.02.2023] Available: https://www.tutorialspoint.com/automata_theory/automata_theory_quick_guide.htm
 

@@ -9,11 +9,10 @@ public class Grammar {
     private final HashMap<Character, ArrayList<String>> productions = new HashMap<>();
     private final char startSymbol;
 
-    public Grammar(char[] Vn, char[] Vt, char[] prodLeft,
-                   String[] prodRight, char initialState){
+    public Grammar(char[] Vn, char[] Vt, char[] productionLeft, String[] productionRight, char initialState){
         genNonTerminalSymbols(Vn);
         genTerminalSymbols(Vt);
-        genProductions(prodLeft, prodRight);
+        genProductions(productionLeft, productionRight);
         this.startSymbol = initialState;
     }
     public void genNonTerminalSymbols(char[] Vn){
@@ -26,13 +25,12 @@ public class Grammar {
             terminalSymbols.add(c);
         }
     }
-    public void genProductions(char[] prodLeft, String[] prodRight) {
-        for(int i = 0; i < prodLeft.length; i++){
-
-            if(!productions.containsKey(prodLeft[i])){
-                productions.put(prodLeft[i], new ArrayList<>());
+    public void genProductions(char[] productionLeft, String[] productionRight) {
+        for(int i = 0; i < productionLeft.length; i++){
+            if(!productions.containsKey(productionLeft[i])){
+                productions.put(productionLeft[i], new ArrayList<>());
             }
-            productions.get(prodLeft[i]).add(prodRight[i]);
+            productions.get(productionLeft[i]).add(productionRight[i]);
         }
     }
 
@@ -40,7 +38,7 @@ public class Grammar {
         ArrayList<String> result = new ArrayList<>();
         Random random = new Random();
 
-        System.out.println("\nStrings formation:");
+        System.out.println("\nGenerated Words:");
         while(result.size()  < wordsAmount){
             Stack<Character> stack = new Stack<>();
             StringBuilder stringBuilder = new StringBuilder();
@@ -66,7 +64,7 @@ public class Grammar {
             result.add(stringBuilder.toString());
             System.out.print("<" + stringBuilder + ">");
         }
-        System.out.print("\n\n" + "Final set of strings: ");
+        System.out.print("\n\n" + "Words generated: ");
         return result;
     }
 
