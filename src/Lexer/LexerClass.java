@@ -71,7 +71,7 @@ public class LexerClass {
                         return new Token("Division Operator", "/");
                     } else if (current == '%') {
                         current = readNextChar();
-                        return new Token("Remainder Operator", "%");
+                        return new Token("Modulo Operator", "%");
                     } else if (current == '{') {
                         current = readNextChar();
                         return new Token("Left Bracket", "{");
