@@ -147,7 +147,7 @@ P''' = {0. S0 → aB | DA | a | BD | b | ASB | aDADB | aADB | aDAB | aAB
         4. D → BA}
 ```
 6. Obtain the Chomsky Normal Form.
-```math
+```
 Pf = {0. S0 → X1B | DA | a | BD | b | Y1B | X1DADB | aADB | aDAB | aAB
       1. S → aB | DA | a | BD | b | ASB | aDADB | aADB | aDAB | aAB
       2. A → a | BD | b | ASB | aDADB | aADB | aDAB | aAB
