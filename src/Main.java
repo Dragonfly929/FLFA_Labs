@@ -67,7 +67,7 @@ public class Main {
         String initialSymbol = "S";
 
         Grammar givenGrammar = new Grammar(V_n, V_t, prodLeft, prodRight, initialSymbol);
-        Grammar cnf = CFGtoCNFConverter.getCopyModGrammar(givenGrammar); //works with the copy of provided grammar
+        Grammar cnf = CFGtoCNFConverter.getCopyModGrammar(givenGrammar);
 
         System.out.println(PURPLE + "Context Free Grammar: " + RESET);
         System.out.println(givenGrammar.displayProductions());

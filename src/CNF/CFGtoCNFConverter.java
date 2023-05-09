@@ -14,6 +14,7 @@ public class CFGtoCNFConverter {
         CFGtoCNFConverter.grammar = grammar;
     }
 
+
     public static void removeEpsilonProductions() {
         Set<String> emptyProductions = new HashSet<>();
 
@@ -56,7 +57,7 @@ public class CFGtoCNFConverter {
     }
     
 
-    private static List<String> generateProductions(String production, String nullableSymbol) {
+    public static List<String> generateProductions(String production, String nullableSymbol) {
         List<String> newProductions = new ArrayList<>();
         List<Integer> nullablePositions = new ArrayList<>();
 
@@ -78,14 +79,14 @@ public class CFGtoCNFConverter {
         return newProductions;
     }
 
-    // creates combination of all occurrences of emptyProduction in the given production
+
     private static List<List<Integer>> generateCombinations(ArrayList<Integer> nums) {
         List<List<Integer>> result = new ArrayList<>();
         backtrack(result, new ArrayList<>(), nums, 0);
         return result;
     }
 
-    //backtracking is used to create the combinations
+
     private static void backtrack(List<List<Integer>> result, List<Integer> tempList, ArrayList<Integer> nums, int start) {
         if (tempList.size() > 0) {
             result.add(new ArrayList<>(tempList));
@@ -97,7 +98,7 @@ public class CFGtoCNFConverter {
         }
     }
 
-    //removers the emptyTransaction symbol found at a given position
+
     private static String removeCharsAtPositions(String inputString, List<Integer> positions) {
         StringBuilder stringBuilder = new StringBuilder(inputString);
         Collections.sort(positions, Collections.reverseOrder());
@@ -106,6 +107,7 @@ public class CFGtoCNFConverter {
         }
         return stringBuilder.toString();
     }
+
 
     private static void removeUnitProductions() {
         for (String key : grammar.getProductions().keySet()) {
@@ -133,7 +135,6 @@ public class CFGtoCNFConverter {
             grammar.getProductions().put(key, newProdList); // update the production list for the current symbol
         }
     }
-
 
 
     public static void removeInaccessibleProduction() {
@@ -181,7 +182,6 @@ public class CFGtoCNFConverter {
             }
         }
     }
-
 
 
     private static boolean removeNonproductiveSymbols(String nonTerminalSymbol, String production, ArrayList<String> productionList) {

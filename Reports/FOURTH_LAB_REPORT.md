@@ -6,10 +6,10 @@
 ----
 
 ## Theory
-Based on the **Chomsky** classification [[1]]
+Based on the **Chomsky** classification [[1]](#1)
 
 **Type 2**. *Context-Free Grammar*: the all productions of grammar
-G must be in form
+G must be in form [[2]](#2).
 > A → β, where Α ∈ V<sub>N</sub>, β ∈ (V<sub>N</sub> ∪ V<sub>T</sub>)*
 
 Context-free grammars (CFGs) are used to describe context-free languages. A context-free grammar is a set of recursive rules used to generate patterns of strings. 
@@ -148,30 +148,70 @@ P''' = {0. S0 → aB | DA | a | BD | b | ASB | aDADB | aADB | aDAB | aAB
 ```
 6. Obtain the Chomsky Normal Form.
 ```
-Pf = {S0 → X1B | DA | a | BD | b | Y1B | Y3ADB | X1ADB | Y3Y2 | X1Y2
-      X1 → a
-      Y1 → AS
-      Y2 → AB
-      Y3 → X1D
-      
-      S → aB | DA | a | BD | b | ASB | aDADB | aADB | aDAB | aAB
-      A → a | BD | b | ASB | aDADB | aADB | aDAB | aAB
-      B → b | ASB
-      D → BA}
+Pf = {S0 ⟶ X0B | a | b | X2B | BD | X4B | X3B | X6B | X7B | DA
+      S ⟶ X0B | a | b | X2B | BD | X4B | X3B | X6B | X7B | DA
+      X0 ⟶ a
+      X1 ⟶ b
+      X2 ⟶ AS
+      X3 ⟶ X0A
+      X4 ⟶ X3D
+      X5 ⟶ X0D
+      X6 ⟶ X5A
+      X7 ⟶ X6D
+      A ⟶ a | b | X2B | BD | X4B | X3B | X6B | X7B
+      B ⟶ b | X2B
+      D ⟶ BA}
 ```
+````java
+public static void removeEpsilonProductions() {
+        Set<String> emptyProductions = new HashSet<>();
+
+        // Find all empty productions and remove them from the original productions
+        for (String left : grammar.getProductions().keySet()) {
+            List<String> productions = grammar.getProductions().get(left);
+            if (productions.remove("")) {
+                emptyProductions.add(left);
+            }
+        }
+
+        // Find all non-terminal symbols with at least one occurrence of an empty production
+        // code
+        
+        // Replace all occurrences of empty productions with all possible combinations of non-empty productions
+        // code
+    }
 ````
-S -> X1B|DA|a|BD|b|Y1B|X1Y2|X1Y3|X1Y4|X1Y5
-X1 -> a
-Y1 -> AS
-Y2 -> DADB
-Y3 -> ADB
-A -> a|BD|b|Y1B|X1Y2|X1Y3|X1Y4|X1Y5
-B -> b|Y1B
-D -> BA
-```` 
-... need to make changes...
+This method removes epsilon productions from a given grammar. It first finds all empty productions by iterating over the productions of the grammar and removing empty productions from each. Then it identifies all non-terminal symbols that have at least one empty production. Finally, it replaces all occurrences of empty productions with all possible combinations of non-empty productions.
+
+
+For each step we have methods: `removeUnitProduction`, `removeInaccessibleProduction` and so on.
+We get this Constructor having as parameter the grammar we are given.
+
+````java
+    public static Grammar getCopyModGrammar(Grammar gr){
+        grammar = new Grammar(gr);
+        removeEpsilonProductions();
+        removeUnitProductions();
+        removeInaccessibleProduction();
+        convertToChomskyNormalForm();
+        return grammar;
+    }
+````
 
 ## Conlcusion 
+
+In this laboratory work, we learned how to transform a context-free grammar (CFG) into Chomsky Normal Form (CNF) by applying a set of well-defined rules. This transformation allowed us to simplify the grammar and make it easier to parse using certain algorithms, such as the CYK algorithm.
+
+The process of transforming a CFG into CNF involved several steps, including removing epsilon productions, unit productions, and non-terminal symbols with unreachable productions. We then had to convert all remaining productions into either productions of the form A -> BC or A -> a, where A, B, and C are non-terminal symbols, and a is a terminal symbol.
+
+Implementing these transformations in code was not always straightforward, as some steps required careful handling of edge cases and special conditions. However, by following the rules systematically and testing each step thoroughly, we were able to successfully transform CFGs into CNF.
+
+Unit tests were an essential tool in this process, as they allowed us to verify the correctness of our code and catch any errors early on. We were able to test each transformation step individually, as well as the overall transformation process, ensuring that our code was robust and reliable.
+
+Overall, this laboratory work provided us with valuable experience in working with context-free grammars and applying transformations to simplify them. It also allowed us to practice implementing these transformations in code and using unit tests to ensure correctness
+
+> Output 
+
 ````
 Lab4: Chomsky Normal Form.
 Context Free Grammar: 
@@ -192,15 +232,22 @@ X4 ⟶ X3D
 X5 ⟶ X0D
 X6 ⟶ X5A
 X7 ⟶ X6D
-
+A ⟶ a | b | X2B | BD | X4B | X3B | X6B | X7B
+D ⟶ BA
 ````
+
+Unit Test Result
+
+![img.png](images/img6.png)
+
+
+
 ## References:
+
 <a id="1">[1]</a>. https://drive.google.com/file/d/19muyiabGeGaoNDK-7PeuzYYDe6_c0e-t/view
 
-
+<a id="3">[2]</a>. https://brilliant.org/wiki/context-free-grammars/#:~:text=A%20context%2Dfree%20grammar%20is,%2C%20compiler%20design%2C%20and%20linguistics.
 
 <a id="3">[3]</a>. https://www.tutorialspoint.com/automata_theory/chomsky_normal_form.htm
 
 [1]: (https://en.wikipedia.org/wiki/Chomsky_normal_form)
-
-https://brilliant.org/wiki/context-free-grammars/#:~:text=A%20context%2Dfree%20grammar%20is,%2C%20compiler%20design%2C%20and%20linguistics.
