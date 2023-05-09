@@ -35,7 +35,7 @@ Algorithm to Convert into Chomsky Normal Form [[3]](#3)
 
 ## Objectives
 
-1. Learn about Chomsky Normal Form (CNF) [1].
+1. Learn about Chomsky Normal Form (CNF) [4].
 2. Get familiar with the approaches of normalizing a grammar.
 3. Implement a method for normalizing an input grammar by the rules of CNF.
     1. The implementation needs to be encapsulated in a method with an appropriate signature (also ideally in an appropriate class/type).
@@ -250,4 +250,4 @@ Unit Test Result
 
 <a id="3">[3]</a>. https://www.tutorialspoint.com/automata_theory/chomsky_normal_form.htm
 
-[1]: (https://en.wikipedia.org/wiki/Chomsky_normal_form)
+[4]: (https://en.wikipedia.org/wiki/Chomsky_normal_form)
