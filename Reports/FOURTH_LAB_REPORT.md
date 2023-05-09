@@ -250,4 +250,4 @@ Unit Test Result
 
 <a id="3">[3]</a>. https://www.tutorialspoint.com/automata_theory/chomsky_normal_form.htm
 
-[4]: (https://en.wikipedia.org/wiki/Chomsky_normal_form)
+[4]: https://en.wikipedia.org/wiki/Chomsky_normal_form
