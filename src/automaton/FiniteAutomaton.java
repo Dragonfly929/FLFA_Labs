@@ -14,8 +14,8 @@ public class FiniteAutomaton {
     private final String initialState;
     private final String finalState;
 
-    public FiniteAutomaton(HashSet<String> Vn,
-                           HashSet<String> Vt,
+    public FiniteAutomaton(Set<String> Vn,
+                           Set<String> Vt,
                            String initialState,
                            String finalState){
         transitions = new ArrayList<>();
@@ -62,9 +62,9 @@ public class FiniteAutomaton {
             int count = 0;
             for(Transition tr : transitions){
                 count++;
-                if(tr.getCurrentState().equals(currentState) &&
-                        tr.getTransitionLabel().equals(String.valueOf(word.charAt(i)))){
-                    currentState = tr.getNextState();
+                if(tr.currentState().equals(currentState) &&
+                        tr.transitionLabel().equals(String.valueOf(word.charAt(i)))){
+                    currentState = tr.nextState();
                     valid = true;
                     break;
                 }
@@ -89,8 +89,8 @@ public class FiniteAutomaton {
         ArrayList<String> prodKey = new ArrayList<>();
         ArrayList<String> prodVal = new ArrayList<>();
         for(Transition tr: transitions){
-            prodKey.add(tr.getCurrentState());
-            prodVal.add(tr.getTransitionLabel() + tr.getNextState());
+            prodKey.add(tr.currentState());
+            prodVal.add(tr.transitionLabel() + tr.nextState());
         }
 
         String[] pk = prodKey.toArray(new String[0]);
@@ -101,33 +101,45 @@ public class FiniteAutomaton {
         return new Grammar(ps, alph, pk, pv, initialState);
     }
 
+//    public void isNFA(){
+//        Grammar grammar = this.toGrammar();
+//        HashMap<String, ArrayList<String>> production = grammar.getProductions();
+//
+//        boolean isNFA = false;
+//        for(ArrayList<String> states : production.values()){
+//            for(int i=0; i<alphabet.size(); i++){
+//                HashSet<String> transitions = new HashSet<>();
+//                for(String state : states){
+//                    String[] transitionsForSymbol = state.split(",");
+//                    if(transitionsForSymbol.length > 1){
+//                        isNFA = true;
+//                        break;
+//                    }
+//                    transitions.add(transitionsForSymbol[i]);
+//                }
+//                if(transitions.size() > 1){
+//                    isNFA = true;
+//                    break;
+//                }
+//            }
+//            if(isNFA){
+//                System.out.println("Type: Non-deterministic Finite Automaton");
+//                return;
+//            }
+//        }
+//        System.out.println("Type: Deterministic Finite Automaton");
+//    }
     public void isNFA(){
         Grammar grammar = this.toGrammar();
         HashMap<String, ArrayList<String>> production = grammar.getProductions();
 
-        boolean isNFA = false;
         for(ArrayList<String> states : production.values()){
-            for(int i=0; i<alphabet.size(); i++){
-                HashSet<String> transitions = new HashSet<>();
-                for(String state : states){
-                    String[] transitionsForSymbol = state.split(",");
-                    if(transitionsForSymbol.length > 1){
-                        isNFA = true;
-                        break;
-                    }
-                    transitions.add(transitionsForSymbol[i]);
-                }
-                if(transitions.size() > 1){
-                    isNFA = true;
-                    break;
-                }
-            }
-            if(isNFA){
-                System.out.println("Type: Non-deterministic Finite Automaton");
+            if(states.size() > alphabet.size()){
+                System.out.println("Non-deterministic Finite Automata");
                 return;
             }
         }
-        System.out.println("Type: Deterministic Finite Automaton");
+        System.out.println("Deterministic Finite Automata");
     }
 
 
@@ -135,7 +147,7 @@ public class FiniteAutomaton {
         ArrayList<Transition> newTransitions = new ArrayList<>();
         Grammar grammar = this.toGrammar();
         Stack<String> stack = new Stack<>();
-        ArrayList<String> analyzed = new ArrayList<>(); //already included in states hashMap
+        ArrayList<String> analyzed = new ArrayList<>();
         stack.add(initialState);
 
         while (!stack.empty()){

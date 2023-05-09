@@ -278,7 +278,7 @@ In state 2, the lexer reads characters until it reaches the end of the identifie
     }
     
 ````
-As test, we analyze a simple code with simple syntax, it has int, float type of variables, there is also the if-else statement used
+As Test, we analyze a simple code with simple syntax, it has int, float type of variables, there is also the if-else statement used
 ````java
 File file = new File("C:\\Users\\zaica\\IdeaProjects\\FLFA_Labs\\src\\Lexer\\input.txt");
 ````
@@ -306,7 +306,8 @@ Through the implementation of a sample lexer, we have learned how to convert a s
 The lexer implementation has demonstrated the process of recognizing lexical units such as keywords, identifiers, literals, and operators in a given source code file. It has also shown how to handle whitespace, comments, and other irrelevant characters, by skipping them and focusing only on the relevant ones.
 
 By using the sample lexer implementation to analyze a sample source code file, we have been able to see how the lexer can effectively break down a program into a series of tokens, which can then be used by other components of a compiler or interpreter to analyze, parse, and execute the program.
-![img.png](images/img7.png)
+
+![img.png](images/img5.png)
 
 Output
 ````

@@ -148,13 +148,52 @@ P''' = {0. S0 → aB | DA | a | BD | b | ASB | aDADB | aADB | aDAB | aAB
 ```
 6. Obtain the Chomsky Normal Form.
 ```
-Pf = {0. S0 → X1B | DA | a | BD | b | Y1B | X1DADB | aADB | aDAB | aAB
-      1. S → aB | DA | a | BD | b | ASB | aDADB | aADB | aDAB | aAB
-      2. A → a | BD | b | ASB | aDADB | aADB | aDAB | aAB
-      3. B → b | ASB
-      4. D → BA}
+Pf = {S0 → X1B | DA | a | BD | b | Y1B | Y3ADB | X1ADB | Y3Y2 | X1Y2
+      X1 → a
+      Y1 → AS
+      Y2 → AB
+      Y3 → X1D
+      
+      S → aB | DA | a | BD | b | ASB | aDADB | aADB | aDAB | aAB
+      A → a | BD | b | ASB | aDADB | aADB | aDAB | aAB
+      B → b | ASB
+      D → BA}
 ```
+````
+S -> X1B|DA|a|BD|b|Y1B|X1Y2|X1Y3|X1Y4|X1Y5
+X1 -> a
+Y1 -> AS
+Y2 -> DADB
+Y3 -> ADB
+A -> a|BD|b|Y1B|X1Y2|X1Y3|X1Y4|X1Y5
+B -> b|Y1B
+D -> BA
+```` 
 ... need to make changes...
+
+## Conlcusion 
+````
+Lab4: Chomsky Normal Form.
+Context Free Grammar: 
+A ⟶ a | B | BD | aADB | aAB | aDAB | aDADB
+B ⟶ b | ASB
+S ⟶ aB | A | DA
+C ⟶ BA
+D ⟶ BA
+
+
+Chomsky Normal Form: 
+S ⟶ X0B | a | b | X2B | BD | X4B | X3B | X6B | X7B | DA
+X0 ⟶ a
+X1 ⟶ b
+X2 ⟶ AS
+X3 ⟶ X0A
+X4 ⟶ X3D
+X5 ⟶ X0D
+X6 ⟶ X5A
+X7 ⟶ X6D
+
+````
 ## References:
 <a id="1">[1]</a>. https://drive.google.com/file/d/19muyiabGeGaoNDK-7PeuzYYDe6_c0e-t/view
 

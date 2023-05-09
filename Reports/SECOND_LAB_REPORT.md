@@ -154,86 +154,13 @@ DFA = (Q', ∑, δ', q<sub>0</sub>, F')
 
 ## Implementation
 
+**TO MAKE CHANGES**
 ```java
 public void grammarType(){
-boolean isRegular = true;
-boolean isContextFree = true;
-
-        for(String key : productions.keySet()){
-            if (key.length() > 1 && !nonTerminalSymbols.contains(key)) {
-                isContextFree = false;
-                isRegular = false;
-                break;
-            }
-        }
-
-        for(ArrayList<String> list : productions.values()){
-            for(String element : list){
-                if(element.length() == 0){
-                    System.out.println("Type: Type 0. Recursively Enumerable Grammar");
-                    return;
-                }
-                boolean isTwoSymbol = nonTerminalSymbols.contains(element.substring(1));
-                if(element.length() > 2 && !isTwoSymbol){
-                    isRegular = false;
-                }
-
-                else if(element.length() == 2 || isTwoSymbol){
-                    String first = String.valueOf(element.charAt(0));
-                    String second = element.substring(1);
-                    if(!terminalSymbols.contains(first) || !nonTerminalSymbols.contains(second)){
-                        isRegular = false;
-                    }
-                } else {
-                    String symbol = String.valueOf(element.charAt(0));
-                    if(!terminalSymbols.contains(symbol)){
-                        isRegular = false;
-                    }
-                }
-            }
-        }
-
-        if(isRegular){
-            System.out.println("Type: Type 3. Regular Grammar");
-        } else if(isContextFree){
-            System.out.println("Type:Type 2. Context-free Grammar");
-        } else {
-            System.out.println("Type: Type 1. Context-Sensitive Grammar");
-        }
-    }
+    
+}
 ```
-The method above determines the grammar type based on Chomsky Hierarchy
 
-```java
-public void isNFA(){
-        Grammar grammar = this.toGrammar();
-        HashMap<String, ArrayList<String>> production = grammar.getProductions();
-
-        boolean isNFA = false;
-        for(ArrayList<String> states : production.values()){
-            for(int i=0; i<alphabet.size(); i++){
-                HashSet<String> transitions = new HashSet<>();
-                for(String state : states){
-                    String[] transitionsForSymbol = state.split(",");
-                    if(transitionsForSymbol.length > 1){
-                        isNFA = true;
-                        break;
-                    }
-                    transitions.add(transitionsForSymbol[i]);
-                }
-                if(transitions.size() > 1){
-                    isNFA = true;
-                    break;
-                }
-            }
-            if(isNFA){
-                System.out.println("Type: Non-deterministic Finite Automaton");
-                return;
-            }
-        }
-        System.out.println("Type: Deterministic Finite Automaton");
-    }
-```
 The given code is a method that determines the type of a given grammar based on Chomsky's hierarchy. Chomsky's hierarchy is a classification of grammars into four types based on the type of rules that they use. The four types of grammars are:
 
 * **Type 0** - Unrestricted or Recursively Enumerable Grammar
@@ -249,14 +176,27 @@ If all productions have at most one non-terminal symbol on the left-hand side, t
 Based on these criteria, the code sets the boolean variables isRegular and isContextFree to true or false, and then prints out the type of the grammar.
 
 Note that the code assumes that the grammar is given as a map productions where the keys are the left-hand sides of the productions and the values are lists of the right-hand sides of the productions. 
+```java
+public void isNFA(){
+
+}
+```
+method that determines if the Finite Automata is NFA or DFA
 
 ## Conclusions / Screenshots / Results
 Before executing the laboratory work we had to get familiar with the concepts of Determinism in Finite Automata. Conversion from NFA to DFA. Chomsky Hierarchy. 
 Executing this laboratory work we had to further develop the project we began in Lab1. From hard coding we try to implement for general cases.
+```
+Lab2: Determinism in Finite Automata. Conversion from NFA to DFA. Chomsky Hierarchy.
+Production list of converted grammar: {q1=[bq1, aq2], q2=[bq2], q0=[aq1, aq0]}
+Type: Type 3. Regular Grammar
 
-![img.png](images/img5.png)
+Before
+Type: Non-Deterministic Finite Automata
 
-![img.png](images/img6.png)
+After
+Type: Deterministic Finite Automata
+```
 
 ## References
 <a id="1">[1]</a>. AKSHAY, Singhal. *Non Deterministic Finite Automata | NFA*. Gate Vidyalay. Available:

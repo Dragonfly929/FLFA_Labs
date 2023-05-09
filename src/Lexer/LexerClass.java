@@ -18,7 +18,6 @@ public class LexerClass {
             "String", "float", "double", "boolean", "return"};
 
     public LexerClass(File file) {
-
         try {
             reader = new BufferedReader(new FileReader(file));
         } catch (FileNotFoundException e) {
@@ -27,7 +26,7 @@ public class LexerClass {
         current = readNextChar();
     }
 
-    List<Token> generateTokens() {
+     public List<Token> generateTokens() {
         Token token = readNextToken();
         while (token != null) {
             tokenList.add(token);
@@ -36,7 +35,7 @@ public class LexerClass {
         return tokenList;
     }
 
-    Token readNextToken() {
+     public Token readNextToken() {
         int state = 1;
 
         while (true) {
@@ -170,7 +169,7 @@ public class LexerClass {
         return (char) (-1);
     }
 
-    boolean isNumber(char c) {
+     boolean isNumber(char c) {
         return c >= '0' && c <= '9';
     }
 
