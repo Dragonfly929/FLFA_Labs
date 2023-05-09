@@ -6,7 +6,7 @@
 ----
 
 ## Theory
-Based on the **Chomsky** classification [[1]](#1).
+Based on the **Chomsky** classification [[1]](#1)
 
 **Type 2**. *Context-Free Grammar*: the all productions of grammar
 G must be in form [[2]](#2).
