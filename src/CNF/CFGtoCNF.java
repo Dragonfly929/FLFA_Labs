@@ -124,7 +124,6 @@ public class CFGtoCNF {
         mapVariableProduction.put(newStart, newProduction);
     }
 
-
     private void removeEpsilon() {
         Iterator itr = mapVariableProduction.entrySet().iterator();
         Iterator itr2 = mapVariableProduction.entrySet().iterator();
