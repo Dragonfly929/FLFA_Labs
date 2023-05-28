@@ -157,7 +157,33 @@ DFA = (Q', ∑, δ', q<sub>0</sub>, F')
 **TO MAKE CHANGES**
 ```java
 public void grammarType(){
+    System.out.println("Grammar Type based on Chomsky Hierarchy");
+    boolean isRegular = true;
+    boolean isContextFree = true;
+    for(String key : productions.keySet()){
+        if (key.length() > 1 && !nonTerminalSymbols.contains(key)) {
+            isContextFree = false;
+            isRegular = false;
+            break;
+        }
+    }
     
+    for(ArrayList<String> list : productions.values()){
+        for(String element : list){
+            if(element.length() == 0){
+                System.out.println(BLUE + "Type 0" + RESET + ". Recursively Enumerable Grammar: No restrictions on productions.");
+                return;
+            }
+            // code that checks whether a given set of grammar productions represents a regular grammar
+        }
+    }
+    if(isRegular){
+        System.out.println(BLUE + "Type 3. " + RESET + "Regular Grammar");
+    } else if(isContextFree){
+        System.out.println(BLUE + "Type 2. " + RESET + "Context-Free Grammar");
+    } else {
+        System.out.println(BLUE + "Type 1. " + RESET + "Context-Sensitive Grammars");
+    }
 }
 ```
 
@@ -177,11 +203,30 @@ Based on these criteria, the code sets the boolean variables isRegular and isCon
 
 Note that the code assumes that the grammar is given as a map productions where the keys are the left-hand sides of the productions and the values are lists of the right-hand sides of the productions. 
 ```java
-public void isNFA(){
+    public void isNFA(){
+        Grammar grammar = this.toGrammar();
+        HashMap<String, ArrayList<String>> production = grammar.getProductions();
 
-}
+        for(ArrayList<String> states : production.values()){
+        if(states.size() > alphabet.size()){
+        System.out.println("Non-deterministic Finite Automata");
+        return;
+        }
+        }
+        System.out.println("Deterministic Finite Automata");
+        }
 ```
-method that determines if the Finite Automata is NFA or DFA
+The method `isNFA()` that checks whether a given grammar represents a Non-deterministic Finite Automaton (NFA) or a Deterministic Finite Automaton (DFA). Here's a breakdown of how the code works:
+
+1. The method assumes there is an instance variable named `alphabet` which represents the alphabet of the automaton.
+2. The method first converts the given automaton into a grammar representation by calling `toGrammar()`, which returns a `Grammar` object.
+3. It retrieves the productions of the grammar using the `getProductions()` method, which returns a `HashMap<String, ArrayList<String>>` representing the production rules for each non-terminal symbol.
+4. The method iterates over the production rules using a for-each loop, iterating over the `ArrayList<String>` values (states) of the `production` map.
+5. Inside the loop, it checks if the size of the states array is greater than the size of the alphabet. If it is, it means that there are more states than symbols in the alphabet, indicating non-determinism.
+6. If the condition is true, the method prints "Non-deterministic Finite Automata" and returns immediately.
+7. If the loop completes without encountering a non-deterministic condition, the method prints "Deterministic Finite Automata" because the automaton does not violate the condition of having more states than symbols in the alphabet.
+
+It's important to note that the code snippet you provided is incomplete, as it references variables (`alphabet`) and methods (`toGrammar()`) that are not included. Additionally, there may be other parts of the codebase that are necessary to properly evaluate the automaton.
 
 ## Conclusions / Screenshots / Results
 Before executing the laboratory work we had to get familiar with the concepts of Determinism in Finite Automata. Conversion from NFA to DFA. Chomsky Hierarchy. 
